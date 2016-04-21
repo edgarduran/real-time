@@ -1,0 +1,33 @@
+{
+  "name": "real-time",
+  "version": "1.0.0",
+  "description": "Polling and such",
+  "main": "server.js",
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edgarduran/real-time.git"
+  },
+  "keywords": [
+    "key",
+    "words"
+  ],
+  "author": "Edgar Duran",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/edgarduran/real-time/issues"
+  },
+  "homepage": "https://github.com/edgarduran/real-time#readme",
+  "dependencies": {
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "jquery": "^2.2.3",
+    "socket.io": "^1.4.5"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  }
+}
