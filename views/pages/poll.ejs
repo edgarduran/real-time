@@ -7,11 +7,23 @@
   <body>
     <h2>This is where your new poll will show up</h2>
     <h3><%= poll.pollName %></h3>
-    <p><%= poll.nameOne %></p>
-    <p><%= poll.nameTwo %></p>
-    <p><%= poll.nameThree %></p>
-    <p><%= poll.nameFour %></p>
-    <p><%= poll.nameFive %></p>
-    <p><%= poll.nameSix %></p>
+
+    <div id="voting-options">
+      <button class="button" id="a"><%= poll.nameOne %></button>
+      <button class="button" id="b"><%= poll.nameTwo %></button>
+      <button class="button" id="c"><%= poll.nameThree %></button>
+      <button class="button" id="d"><%= poll.nameFour %></button>
+      <button class="button" id="e"><%= poll.nameFive %></button>
+      <button class="button" id="f"><%= poll.nameSix %></button>
+    </div>
+
+    <h1>Totes:</h1>
+    <div class="vote-totals">
+    </div>
+
+    <link rel="stylesheet" href="/style.css">
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client.js"></script>
   </body>
 </html>
