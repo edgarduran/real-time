@@ -17,6 +17,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.locals.polls = {};
+app.locals.adminPolls = {};
 
 votes = {};
 function countVotes (votes) {
@@ -38,15 +39,36 @@ app.get('/', (request, response) => {
   response.render('pages/index');
 });
 
+app.get('/admin-poll', (request, response) => {
+  response.render('pages/admin-poll')
+});
+
+app.get('/open-poll', (request, response) => {
+  response.render('pages/open-poll')
+});
+
 app.get('/polls/:id', (request, response) => {
   var currentPoll = app.locals.polls[request.params.id];
   response.render('pages/poll', { poll: currentPoll});
 });
 
+app.get('/admin-polls/:id', (request, response) => {
+  var currentPoll = app.locals.adminPolls[request.params.id];
+  response.render('pages/admin-results', { poll: currentPoll});
+});
+
 app.post('/polls', (request, response) => {
+  var referer = request.headers.referer
   var id = generateId();
-  app.locals.polls[id] = request.body;
-  response.redirect('/polls/' + id);
+  if (referer.search('open-poll') > -1) {
+    console.log('open-poll');
+    app.locals.polls[id] = request.body;
+    response.redirect('/polls/' + id);
+  } else if (referer.search('admin-poll') > -1) {
+    console.log('admin-poll');
+    app.locals.adminPolls[id] = request.body;
+    response.redirect('/admin-polls/' + id);
+  }
 });
 
 server.listen(port, function () {
