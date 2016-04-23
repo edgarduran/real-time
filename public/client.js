@@ -1,13 +1,20 @@
 var socket = io();
 
-var voteOptions = $('#voting-options button')
-var voteTally = $('.vote-totals')
+var voteOptions = $('#voting-options button');
+var voteTally = $('.vote-totals');
+var pollOptions = $('#poll-options-select');
 
 for (var i = 0; i < voteOptions.length; i++) {
   voteOptions[i].addEventListener('click', function () {
     socket.send('voterChoice', this.innerText);
   });
 }
+
+pollOptions.on('change', function () {
+  var value = this.value;
+  var optionForm = $('#' + value + '-options');
+  optionForm.removeClass('hidden');
+});
 
 socket.on('voteCount', function (runningTotalVoteCount) {
   console.log(runningTotalVoteCount);
@@ -18,5 +25,5 @@ socket.on('voteCount', function (runningTotalVoteCount) {
                     +"<li>" + runningTotalVoteCount.C + "</li>"
                     +"<li>" + runningTotalVoteCount.D + "</li>"
                   +"</ul>"
-                )
+                );
 });

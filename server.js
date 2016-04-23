@@ -29,6 +29,10 @@ app.get('/', (request, response) => {
   response.render('pages/index');
 });
 
+app.get('/poll/:id', (request, response) => {
+  response.render('pages/index');
+});
+
 server.listen(port, function () {
   console.log('Listening on port ' + port + '.');
 });

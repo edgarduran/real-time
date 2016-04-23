@@ -5,20 +5,52 @@
     <title>Real Time</title>
   </head>
   <body>
-    <h1>Whatup?</h1>
+    <h2>Create a poll here</h2>
 
-    <div id="voting-options">
-      <button class="button" id="a">A</button>
-      <button class="button" id="b">B</button>
-      <button class="button" id="c">C</button>
-      <button class="button" id="d">D</button>
+    <h3>New Poll</h3>
+    <h3>Choose from 2 up to 6 poll options</h3>
+
+    <select id="poll-options-select">
+      <option selected disabled>Choose here</option>
+      <option value="two">2</option>
+      <option value="three">3</option>
+      <option value="four">4</option>
+      <option value="five">5</option>
+      <option value="six">6</option>
+    </select>
+
+    <div class="hidden" id="two-options">
+      <% include ../partials/two-options %>
+    </div>
+    <div class="hidden" id="three-options">
+      <% include ../partials/three-options %>
+    </div>
+    <div class="hidden" id="four-options">
+      <% include ../partials/four-options %>
+    </div>
+    <div class="hidden" id="five-options">
+      <% include ../partials/five-options %>
+    </div>
+    <div class="hidden" id="six-options">
+      <% include ../partials/six-options %>
     </div>
 
-    <div class="vote-totals">
-    </div>
-
+    <link rel="stylesheet" href="/style.css">
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/client.js"></script>
   </body>
 </html>
+
+
+<!-- <h1>Whatup?</h1>
+
+<div id="voting-options">
+  <button class="button" id="a">A</button>
+  <button class="button" id="b">B</button>
+  <button class="button" id="c">C</button>
+  <button class="button" id="d">D</button>
+</div>
+
+<div class="vote-totals">
+</div> -->
