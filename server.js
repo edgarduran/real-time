@@ -1,6 +1,10 @@
 const express = require('express');
 const http = require('http');
 const app = express();
+const generateId = require('./public/generate-id');
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var port = process.env.PORT || 3000;
 var server = http.createServer(app);
@@ -10,6 +14,9 @@ const io = socketIo(server);
 
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.locals.polls = {};
 
 votes = {};
 function countVotes (votes) {
@@ -29,8 +36,15 @@ app.get('/', (request, response) => {
   response.render('pages/index');
 });
 
-app.get('/poll/:id', (request, response) => {
-  response.render('pages/index');
+app.get('/polls/:id', (request, response) => {
+  var currentPoll = app.locals.polls[request.params.id];
+  response.render('pages/poll', { poll: currentPoll});
+});
+
+app.post('/polls', (request, response) => {
+  var id = generateId();
+  app.locals.polls[id] = request.body;
+  response.redirect('/polls/' + id);
 });
 
 server.listen(port, function () {
