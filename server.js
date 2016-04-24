@@ -31,7 +31,7 @@ function countVotes (votes) {
     f: 0
   };
   for (var vote in votes) {
-    voteCount[votes[vote]]++
+    voteCount[votes[vote]]++;
   }
   return voteCount;
 }
@@ -78,9 +78,11 @@ app.post('/polls', (request, response) => {
   }
 });
 
-server.listen(port, function () {
-  console.log('Listening on port ' + port + '.');
-});
+if (!module.parent){
+  server.listen(port, function () {
+    console.log('Listening on port ' + port + '.');
+  });
+}
 
 io.on('connection', function (socket) {
   console.log('A user has connected.');
@@ -100,4 +102,4 @@ io.on('connection', function (socket) {
   });
 });
 
-module.exports = server;
+module.exports = app;
