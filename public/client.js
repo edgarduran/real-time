@@ -6,6 +6,12 @@ var pollOptions = $('#poll-options-select');
 var submitPoll = $('.new-poll');
 var adminPollOptions = $('#admin-poll-options button');
 var adminVoteTally = $('.admin-vote-totals');
+var closePoll = $('.close-poll');
+var pollId = window.location.pathname.split('/')[2];
+
+closePoll.on('click', function () {
+  socket.send('closePoll', pollId);
+});
 
 pollOptions.on('change', function () {
   var value = this.value;
@@ -24,6 +30,12 @@ for (var i = 0; i < voteOptions.length; i++) {
     socket.send('voterChoice', this.id);
   });
 }
+
+socket.on('hideVotingTab', function () {
+  adminPollOptions.addClass('hidden');
+  $('#admin-poll-options').append("<h2>Poll has been closed</h2>")
+});
+
 socket.on('voteCount', function (runningTotalVoteCount) {
   console.log(runningTotalVoteCount);
   voteTally.empty();
