@@ -20,6 +20,7 @@ app.locals.polls = {};
 app.locals.adminPolls = {};
 
 votes = {};
+adminVotes = {};
 function countVotes (votes) {
   var voteCount = {
     a: 0,
@@ -39,17 +40,21 @@ app.get('/', (request, response) => {
   response.render('pages/index');
 });
 
-app.get('/admin-poll', (request, response) => {
-  response.render('pages/admin-poll')
+app.get('/open-poll', (request, response) => {
+  response.render('pages/open-poll');
 });
 
-app.get('/open-poll', (request, response) => {
-  response.render('pages/open-poll')
+app.get('/admin-poll', (request, response) => {
+  response.render('pages/admin-poll');
 });
 
 app.get('/polls/:id', (request, response) => {
   var currentPoll = app.locals.polls[request.params.id];
   response.render('pages/poll', { poll: currentPoll});
+});
+
+app.get('/admin-voting/:id', (request, response) => {
+  response.render('pages/admin-voting');
 });
 
 app.get('/admin-polls/:id', (request, response) => {
@@ -58,7 +63,7 @@ app.get('/admin-polls/:id', (request, response) => {
 });
 
 app.post('/polls', (request, response) => {
-  var referer = request.headers.referer
+  var referer = request.headers.referer;
   var id = generateId();
   if (referer.search('open-poll') > -1) {
     console.log('open-poll');
@@ -82,6 +87,9 @@ io.on('connection', function (socket) {
     if (channel === 'voterChoice') {
       votes[socket.id] = message;
       io.sockets.emit('voteCount', countVotes(votes));
+    } else if (channel === 'adminPollVoterChoice') {
+      adminVotes[socket.id] = message;
+      io.sockets.emit('adminVoteCount', countVotes(adminVotes));
     }
   });
 
