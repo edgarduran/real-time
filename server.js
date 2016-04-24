@@ -54,7 +54,8 @@ app.get('/polls/:id', (request, response) => {
 });
 
 app.get('/admin-voting/:id', (request, response) => {
-  response.render('pages/admin-voting');
+  var currentPoll = app.locals.adminPolls[request.params.id];
+  response.render('pages/admin-voting', { poll: currentPoll});
 });
 
 app.get('/admin-polls/:id', (request, response) => {
