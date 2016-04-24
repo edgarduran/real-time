@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Private Poll Voting</title>
+  </head>
+  <body>
+    <h2><%= poll.pollName %></h2>
+    <h4>Pick a choice:</h4>
+    <div id="admin-poll-options">
+      <button class="button" id="a"><%= poll.nameOne %></button>
+      <button class="button" id="b"><%= poll.nameTwo %></button>
+      <button class="button" id="c"><%= poll.nameThree %></button>
+      <button class="button" id="d"><%= poll.nameFour %></button>
+      <button class="button" id="e"><%= poll.nameFive %></button>
+      <button class="button" id="f"><%= poll.nameSix %></button>
+    </div>
+
+    <link rel="stylesheet" href="/style.css">
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>

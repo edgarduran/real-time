@@ -1,6 +1,10 @@
 const express = require('express');
 const http = require('http');
 const app = express();
+const generateId = require('./public/generate-id');
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 var port = process.env.PORT || 3000;
 var server = http.createServer(app);
@@ -10,14 +14,21 @@ const io = socketIo(server);
 
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.locals.polls = {};
+app.locals.adminPolls = {};
 
 votes = {};
+adminVotes = {};
 function countVotes (votes) {
   var voteCount = {
-    A: 0,
-    B: 0,
-    C: 0,
-    D: 0
+    a: 0,
+    b: 0,
+    c: 0,
+    d: 0,
+    e: 0,
+    f: 0
   };
   for (var vote in votes) {
     voteCount[votes[vote]]++
@@ -27,6 +38,44 @@ function countVotes (votes) {
 
 app.get('/', (request, response) => {
   response.render('pages/index');
+});
+
+app.get('/open-poll', (request, response) => {
+  response.render('pages/open-poll');
+});
+
+app.get('/admin-poll', (request, response) => {
+  response.render('pages/admin-poll');
+});
+
+app.get('/polls/:id', (request, response) => {
+  var currentPoll = app.locals.polls[request.params.id];
+  response.render('pages/poll', { poll: currentPoll});
+});
+
+app.get('/admin-voting/:id', (request, response) => {
+  var currentPoll = app.locals.adminPolls[request.params.id];
+  response.render('pages/admin-voting', { poll: currentPoll});
+});
+
+app.get('/admin-polls/:id', (request, response) => {
+  var currentPoll = app.locals.adminPolls[request.params.id];
+  console.log(currentPoll);
+  response.render('pages/admin-results', { poll: currentPoll});
+});
+
+app.post('/polls', (request, response) => {
+  var referer = request.headers.referer;
+  var id = generateId();
+  if (referer.search('open-poll') > -1) {
+    console.log('open-poll');
+    app.locals.polls[id] = request.body;
+    response.redirect('/polls/' + id);
+  } else if (referer.search('admin-poll') > -1) {
+    console.log('admin-poll');
+    app.locals.adminPolls[id] = request.body;
+    response.redirect('/admin-polls/' + id);
+  }
 });
 
 server.listen(port, function () {
@@ -40,6 +89,9 @@ io.on('connection', function (socket) {
     if (channel === 'voterChoice') {
       votes[socket.id] = message;
       io.sockets.emit('voteCount', countVotes(votes));
+    } else if (channel === 'adminPollVoterChoice') {
+      adminVotes[socket.id] = message;
+      io.sockets.emit('adminVoteCount', countVotes(adminVotes));
     }
   });
 

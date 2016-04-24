@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Admin Poll Results</title>
+  </head>
+  <body>
+    <h2>Private Poll Results</h2>
+    <h3><%= poll.pollName %></h3>
+
+    <h1>Votes:</h1>
+    <div class="admin-vote-totals">
+    </div>
+
+    <h1>Voting Booth</h1>
+    <div class="voting-booth">
+      <button onclick="window.location.href='/admin-voting/'">Private Results</button>
+
+      <h3>Link to Voting</h3>
+    </div>
+
+    <link rel="stylesheet" href="/style.css">
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/client.js"></script>
+  </body>
+</html>

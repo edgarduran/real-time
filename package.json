@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/edgarduran/real-time#readme",
   "dependencies": {
+    "body-parser": "^1.15.0",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
     "jquery": "^2.2.3",

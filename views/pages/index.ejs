@@ -5,18 +5,11 @@
     <title>Real Time</title>
   </head>
   <body>
-    <h1>Whatup?</h1>
+    <h2>Which type of poll would you like to create?</h2>
+    <button onclick="window.location.href='/open-poll'">Open Results</button>
+    <button onclick="window.location.href='/admin-poll'">Private Results</button>
 
-    <div id="voting-options">
-      <button class="button" id="a">A</button>
-      <button class="button" id="b">B</button>
-      <button class="button" id="c">C</button>
-      <button class="button" id="d">D</button>
-    </div>
-
-    <div class="vote-totals">
-    </div>
-
+    <link rel="stylesheet" href="/style.css">
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/client.js"></script>
