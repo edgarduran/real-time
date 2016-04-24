@@ -60,6 +60,7 @@ app.get('/admin-voting/:id', (request, response) => {
 
 app.get('/admin-polls/:id', (request, response) => {
   var currentPoll = app.locals.adminPolls[request.params.id];
+  console.log(currentPoll);
   response.render('pages/admin-results', { poll: currentPoll});
 });
 
