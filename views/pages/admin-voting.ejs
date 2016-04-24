@@ -8,12 +8,16 @@
     <h2><%= poll.pollName %></h2>
     <h4>Pick a choice:</h4>
     <div id="admin-poll-options">
-      <button class="button" id="a"><%= poll.nameOne %></button>
-      <button class="button" id="b"><%= poll.nameTwo %></button>
-      <button class="button" id="c"><%= poll.nameThree %></button>
-      <button class="button" id="d"><%= poll.nameFour %></button>
-      <button class="button" id="e"><%= poll.nameFive %></button>
-      <button class="button" id="f"><%= poll.nameSix %></button>
+      <% if (poll.open === 'true') { %>
+        <button class="button" id="a"><%= poll.nameOne %></button>
+        <button class="button" id="b"><%= poll.nameTwo %></button>
+        <button class="button" id="c"><%= poll.nameThree %></button>
+        <button class="button" id="d"><%= poll.nameFour %></button>
+        <button class="button" id="e"><%= poll.nameFive %></button>
+        <button class="button" id="f"><%= poll.nameSix %></button>
+      <% } else { %>
+        <h2>Poll has been closed</h2>
+      <% } %>
     </div>
 
     <link rel="stylesheet" href="/style.css">

@@ -97,6 +97,14 @@ io.on('connection', function (socket) {
     }
   });
 
+  socket.on('message', function (channel, pollId) {
+    if (channel === 'closePoll') {
+      app.locals.adminPolls[pollId].open = 'false';
+      io.sockets.emit('hideVotingTab');
+      io.sockets.emit('adminVoteCount', countVotes(adminVotes));
+    }
+  });
+
   socket.on('disconnect', function () {
     delete votes[socket.id];
   });
