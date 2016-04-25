@@ -54,7 +54,6 @@ socket.on('hideVotingTab', function () {
 });
 
 socket.on('voteCount', function (runningTotalVoteCount) {
-  console.log(runningTotalVoteCount);
   voteTally.empty();
   voteTally.append("<ul>"
                     +"<li>" + runningTotalVoteCount.a + "</li>"
@@ -68,7 +67,6 @@ socket.on('voteCount', function (runningTotalVoteCount) {
 });
 
 socket.on('adminVoteCount', function (adminTotalVoteCount) {
-  console.log(adminTotalVoteCount);
   adminVoteTally.empty();
   adminVoteTally.append("<ul>"
                     +"<li>" + adminTotalVoteCount.a + "</li>"
