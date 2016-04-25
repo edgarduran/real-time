@@ -5,7 +5,7 @@
     <title>Admin Poll Results</title>
   </head>
   <body>
-    <h2>Private Poll Results</h2>
+    <h2 class="admin-poll-page">Private Poll Results</h2>
     <h3><%= poll.pollName %></h3>
 
     <h1>Votes:</h1>
@@ -17,6 +17,7 @@
       <h3>Link to Voting</h3>
       <button onclick="window.location.href='/admin-voting/'">Private Results</button>
     </div>
+    <button class="start-timer" type="button" name="start-timer">Start Timer</button>
 
     <button class="close-poll" type="button" name="close-poll">Close Poll</button>
 
