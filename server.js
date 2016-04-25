@@ -107,7 +107,9 @@ io.on('connection', function (socket) {
       var minutes = app.locals.adminPolls[pollId].timeout;
       var timeout = minutes * 60 * 1000;
       console.log(timeout);
-      setTimeout(closePoll(pollId), timeout);
+      setTimeout(function () {
+        closePoll(pollId);
+      },timeout);
     }
   });
 
