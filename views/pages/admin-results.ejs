@@ -15,15 +15,13 @@
     <h1>Voting Booth</h1>
     <div class="voting-booth">
       <h3>Link to Voting</h3>
-      <button onclick="window.location.href='/admin-voting/'">Private Results</button>
+      <button class="results-link">Private Results</button>
+      <div class="voting-link"></div>
     </div>
     <button class="start-timer" type="button" name="start-timer">Start Timer</button>
 
     <button class="close-poll" type="button" name="close-poll">Close Poll</button>
 
-    <link rel="stylesheet" href="/style.css">
-    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/client.js"></script>
+    <% include ../partials/libraries %>
   </body>
 </html>
