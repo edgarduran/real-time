@@ -14,7 +14,7 @@ var hosttname = window.location.hostname;
 var port = window.location.port;
 
 closePoll.on('click', function () {
-  socket.send('closePoll', pollId);
+  socket.send('closeThePoll', pollId);
 });
 
 pollOptions.on('change', function () {
