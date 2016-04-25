@@ -69,7 +69,6 @@ app.get('/admin-polls/:id', (request, response) => {
 });
 
 app.post('/polls', (request, response) => {
-  console.log(request.headers);
   var referer = request.headers.referer;
   var id = generateId();
   if (referer.search('open-poll') > -1) {
@@ -109,7 +108,7 @@ io.on('connection', function (socket) {
     }
   });
 
-  socket.on('message', function (channel, pollId) {
+  socket.on('message', function (channel, pollId, time) {
     if (channel === 'pollEndTime') {
       var minutes = app.locals.adminPolls[pollId].timeout;
       var timeout = minutes * 60 * 1000;
@@ -118,12 +117,13 @@ io.on('connection', function (socket) {
         closePoll(pollId);
       },timeout);
     } else if (channel === 'openPollEndTime') {
-      var minutes = app.locals.polls[pollId].timeout;
-      var timeout = minutes * 60 * 1000;
-      console.log(timeout);
+      console.log(time);
+      var newTime = time * 60 * 1000;
+      app.locals.polls[pollId].timeout = newTime;
+      console.log(newTime);
       setTimeout(function () {
         closeOpenPoll(pollId);
-      },timeout);    }
+      },newTime);    }
   });
 
   socket.on('disconnect', function () {

@@ -11,6 +11,7 @@ var pollId = window.location.pathname.split('/')[2];
 var startTimer = $('.start-timer');
 var openPollTimer = $('.start-open-timer');
 var showLink = $('.results-link');
+var showOpenLink = $('.open-results-link');
 var hosttname = window.location.hostname;
 var port = window.location.port;
 
@@ -25,13 +26,16 @@ pollOptions.on('change', function () {
 });
 
 startTimer.on('click', function () {
-  socket.send('pollEndTime', pollId);
+  var time = $('#minutes').val();
+  socket.send('pollEndTime', pollId, time);
   startTimer.addClass('hidden');
 });
 
 openPollTimer.on('click', function () {
-  socket.send('openPollEndTime', pollId);
+  var time = $('#minutes').val();
+  socket.send('openPollEndTime', pollId, time);
   openPollTimer.addClass('hidden');
+  $('.timer-starter').addClass('hidden');
 });
 
 showLink.on('click', function () {
@@ -39,6 +43,15 @@ showLink.on('click', function () {
                           +hosttname
                           +port
                           +"/admin-voting/"
+                          +pollId
+                          +"</h4>");
+});
+
+showOpenLink.on('click', function () {
+  $('.open-voting-link').append("<h4>"
+                          +hosttname
+                          +port
+                          +"/polls/"
                           +pollId
                           +"</h4>");
 });

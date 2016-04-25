@@ -14,12 +14,16 @@
 
     <h1>Voting Booth</h1>
     <div class="voting-booth">
-      <h3>Link to Voting</h3>
-      <button class="results-link">Click here</button>
-      <div class="voting-link"></div>
-      <button class="start-timer" type="button" name="start-timer">Start Timer</button>
+      <button class="open-results-link">Link to Voting</button>
+      <div class="open-voting-link"></div>
     </div>
-
+    <hr>
+    <div class="timer-starter">  
+      <label for="">Set time til poll closes in minutes</label>
+      <input id="minutes" type="text" name="timeout">
+      <button class="start-open-timer" type="button" name="start-timer">Start</button>
+    </div>
+    <hr>
     <button class="close-poll" type="button" name="close-poll">Close Poll</button>
 
     <% include ../partials/libraries %>
