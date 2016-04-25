@@ -30,7 +30,6 @@ startTimer.on('click', function () {
 showLink.on('click', function () {
   $('.voting-link').append("<h4>"
                           +hosttname
-                          +":"
                           +port
                           +"/admin-voting/"
                           +pollId
