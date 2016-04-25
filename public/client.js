@@ -60,6 +60,11 @@ socket.on('hideVotingTab', function () {
   $('#admin-poll-options').append("<h2>Poll has been closed</h2>")
 });
 
+socket.on('hideOpenVotingTab', function () {
+  pollOptions.addClass('hidden');
+  $('#voting-options').append("<h2>Poll has been closed</h2>")
+});
+
 socket.on('voteCount', function (runningTotalVoteCount) {
   voteTally.empty();
   voteTally.append("<ul>"

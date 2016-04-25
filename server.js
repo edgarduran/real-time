@@ -131,7 +131,7 @@ function closePoll(pollId) {
 }
 function closeOpenPoll(pollId) {
   app.locals.polls[pollId].open = 'false';
-  io.sockets.emit('hideVotingTab');
+  io.sockets.emit('hideOpenVotingTab');
   io.sockets.emit('voteCount', countVotes(votes));
 }
 
