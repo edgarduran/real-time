@@ -26,9 +26,11 @@ pollOptions.on('change', function () {
 });
 
 startTimer.on('click', function () {
-  var time = $('#minutes').val();
+  var time = $('#poll-minutes').val();
   socket.send('pollEndTime', pollId, time);
   startTimer.addClass('hidden');
+  $('.admin-timer-starter').addClass('hidden');
+
 });
 
 openPollTimer.on('click', function () {

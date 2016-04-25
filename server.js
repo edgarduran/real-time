@@ -110,12 +110,11 @@ io.on('connection', function (socket) {
 
   socket.on('message', function (channel, pollId, time) {
     if (channel === 'pollEndTime') {
-      var minutes = app.locals.adminPolls[pollId].timeout;
-      var timeout = minutes * 60 * 1000;
-      console.log(timeout);
+      var newTime = time * 60 * 1000;
+      app.locals.adminPolls[pollId].timeout = newTime;
       setTimeout(function () {
         closePoll(pollId);
-      },timeout);
+      },newTime);
     } else if (channel === 'openPollEndTime') {
       console.log(time);
       var newTime = time * 60 * 1000;
