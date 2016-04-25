@@ -87,12 +87,12 @@ socket.on('hideOpenVotingTab', function () {
 socket.on('voteCount', function (runningTotalVoteCount) {
   voteTally.empty();
   voteTally.append("<ul>"
-                    +"<li>" + runningTotalVoteCount.a + "</li>"
-                    +"<li>" + runningTotalVoteCount.b + "</li>"
-                    +"<li>" + runningTotalVoteCount.c + "</li>"
-                    +"<li>" + runningTotalVoteCount.d + "</li>"
-                    +"<li>" + runningTotalVoteCount.e + "</li>"
-                    +"<li>" + runningTotalVoteCount.f + "</li>"
+                    +"<li>Opt 1:  " + runningTotalVoteCount.a + "</li>"
+                    +"<li>Opt 2:  " + runningTotalVoteCount.b + "</li>"
+                    +"<li>Opt 3:  " + runningTotalVoteCount.c + "</li>"
+                    +"<li>Opt 4:  " + runningTotalVoteCount.d + "</li>"
+                    +"<li>Opt 5:  " + runningTotalVoteCount.e + "</li>"
+                    +"<li>Opt 6:  " + runningTotalVoteCount.f + "</li>"
                   +"</ul>"
                 );
 });
@@ -100,12 +100,12 @@ socket.on('voteCount', function (runningTotalVoteCount) {
 socket.on('adminVoteCount', function (adminTotalVoteCount) {
   adminVoteTally.empty();
   adminVoteTally.append("<ul>"
-                    +"<li>" + adminTotalVoteCount.a + "</li>"
-                    +"<li>" + adminTotalVoteCount.b + "</li>"
-                    +"<li>" + adminTotalVoteCount.c + "</li>"
-                    +"<li>" + adminTotalVoteCount.d + "</li>"
-                    +"<li>" + adminTotalVoteCount.e + "</li>"
-                    +"<li>" + adminTotalVoteCount.f + "</li>"
+                    +"<li>Opt 1:  " + adminTotalVoteCount.a + "</li>"
+                    +"<li>Opt 2:  " + adminTotalVoteCount.b + "</li>"
+                    +"<li>Opt 3:  " + adminTotalVoteCount.c + "</li>"
+                    +"<li>Opt 4:  " + adminTotalVoteCount.d + "</li>"
+                    +"<li>Opt 5:  " + adminTotalVoteCount.e + "</li>"
+                    +"<li>Opt 6:  " + adminTotalVoteCount.f + "</li>"
                   +"</ul>"
                 );
 });
