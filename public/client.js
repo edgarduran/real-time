@@ -9,6 +9,7 @@ var adminVoteTally = $('.admin-vote-totals');
 var closePoll = $('.close-poll');
 var pollId = window.location.pathname.split('/')[2];
 var startTimer = $('.start-timer');
+var openPollTimer = $('.start-open-timer');
 var showLink = $('.results-link');
 var hosttname = window.location.hostname;
 var port = window.location.port;
@@ -25,6 +26,12 @@ pollOptions.on('change', function () {
 
 startTimer.on('click', function () {
   socket.send('pollEndTime', pollId);
+  startTimer.addClass('hidden');
+});
+
+openPollTimer.on('click', function () {
+  socket.send('openPollEndTime', pollId);
+  openPollTimer.addClass('hidden');
 });
 
 showLink.on('click', function () {

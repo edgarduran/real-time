@@ -110,7 +110,13 @@ io.on('connection', function (socket) {
       setTimeout(function () {
         closePoll(pollId);
       },timeout);
-    }
+    } else if (channel === 'openPollEndTime') {
+      var minutes = app.locals.polls[pollId].timeout;
+      var timeout = minutes * 60 * 1000;
+      console.log(timeout);
+      setTimeout(function () {
+        closeOpenPoll(pollId);
+      },timeout);    }
   });
 
   socket.on('disconnect', function () {
@@ -122,6 +128,11 @@ function closePoll(pollId) {
   app.locals.adminPolls[pollId].open = 'false';
   io.sockets.emit('hideVotingTab');
   io.sockets.emit('adminVoteCount', countVotes(adminVotes));
+}
+function closeOpenPoll(pollId) {
+  app.locals.polls[pollId].open = 'false';
+  io.sockets.emit('hideVotingTab');
+  io.sockets.emit('voteCount', countVotes(votes));
 }
 
 module.exports = app;
