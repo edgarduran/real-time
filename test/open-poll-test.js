@@ -39,7 +39,7 @@ describe('Admin Poll', () => {
       this.request.post('/polls', { form: data }, (error, response) => {
         if (error) { done(error); }
         var newPollId = Object.keys(app.locals.polls)[0];
-        assert.equal(response.headers.location, '/polls/' + newPollId);
+        assert.equal(response.headers.location, '/polls-setup/' + newPollId);
         done();
       });
     });

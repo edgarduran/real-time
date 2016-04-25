@@ -48,6 +48,11 @@ app.get('/admin-poll', (request, response) => {
   response.render('pages/admin-poll');
 });
 
+app.get('/polls-setup/:id', (request, response) => {
+  var currentPoll = app.locals.polls[request.params.id];
+  response.render('pages/poll-setup', { poll: currentPoll});
+});
+
 app.get('/polls/:id', (request, response) => {
   var currentPoll = app.locals.polls[request.params.id];
   response.render('pages/poll', { poll: currentPoll});
@@ -69,7 +74,7 @@ app.post('/polls', (request, response) => {
   if (referer.search('open-poll') > -1) {
     console.log('open-poll');
     app.locals.polls[id] = request.body;
-    response.redirect('/polls/' + id);
+    response.redirect('/polls-setup/' + id);
   } else if (referer.search('admin-poll') > -1) {
     console.log('admin-poll');
     app.locals.adminPolls[id] = request.body;
@@ -89,6 +94,7 @@ io.on('connection', function (socket) {
   socket.on('message', function (channel, message) {
     if (channel === 'voterChoice') {
       votes[socket.id] = message;
+      console.log(votes);
       io.sockets.emit('voteCount', countVotes(votes));
     } else if (channel === 'adminPollVoterChoice') {
       adminVotes[socket.id] = message;
@@ -102,21 +108,21 @@ io.on('connection', function (socket) {
     }
   });
 
-  socket.on('message', function (channel, pollId) {
+  socket.on('message', function (channel, pollId, time) {
     if (channel === 'pollEndTime') {
-      var minutes = app.locals.adminPolls[pollId].timeout;
-      var timeout = minutes * 60 * 1000;
-      console.log(timeout);
+      var newTime = time * 60 * 1000;
+      app.locals.adminPolls[pollId].timeout = newTime;
       setTimeout(function () {
         closePoll(pollId);
-      },timeout);
+      },newTime);
     } else if (channel === 'openPollEndTime') {
-      var minutes = app.locals.polls[pollId].timeout;
-      var timeout = minutes * 60 * 1000;
-      console.log(timeout);
+      console.log(time);
+      var newTime = time * 60 * 1000;
+      app.locals.polls[pollId].timeout = newTime;
+      console.log(newTime);
       setTimeout(function () {
         closeOpenPoll(pollId);
-      },timeout);    }
+      },newTime);    }
   });
 
   socket.on('disconnect', function () {

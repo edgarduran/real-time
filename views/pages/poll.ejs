@@ -10,25 +10,30 @@
 
     <div id="voting-options">
       <% if (poll.open === 'true') { %>
+        <p>Opt 1:</p>
         <button class="button" id="a"><%= poll.nameOne %></button>
+        <p>Opt 2:</p>
         <button class="button" id="b"><%= poll.nameTwo %></button>
         <% if (poll.nameThree) { %>
+          <p>Opt 3:</p>
           <button class="button" id="c"><%= poll.nameThree %></button>
         <% } %>
         <% if (poll.nameFour) { %>
+          <p>Opt 4:</p>
           <button class="button" id="d"><%= poll.nameFour %></button>
         <% } %>
         <% if (poll.nameFive) { %>
+          <p>Opt 5:</p>
           <button class="button" id="e"><%= poll.nameFive %></button>
         <% } %>
         <% if (poll.nameSix) { %>
+          <p>Opt 6:</p>
           <button class="button" id="f"><%= poll.nameSix %></button>
         <% } %>
       <% } else { %>
         <h2>Poll has been closed</h2>
       <% } %>
     </div>
-    <button class="start-open-timer" type="button" name="start-timer">Start Timer</button>
 
     <h1>Totes:</h1>
     <div class="vote-totals">
