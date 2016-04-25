@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Open Poll Setup</title>
+  </head>
+  <body>
+    <h2 class="poll-setup-page">Add Time or close poll</h2>
+    <h3><%= poll.pollName %></h3>
+
+    <h1>Totes:</h1>
+    <div class="vote-totals">
+    </div>
+
+    <h1>Voting Booth</h1>
+    <div class="voting-booth">
+      <h3>Link to Voting</h3>
+      <button class="results-link">Click here</button>
+      <div class="voting-link"></div>
+      <button class="start-timer" type="button" name="start-timer">Start Timer</button>
+    </div>
+
+    <button class="close-poll" type="button" name="close-poll">Close Poll</button>
+
+    <% include ../partials/libraries %>
+  </body>
+</html>

@@ -46,27 +46,27 @@ showLink.on('click', function () {
 for (var i = 0; i < adminPollOptions.length; i++) {
   adminPollOptions[i].addEventListener('click', function () {
     socket.send('adminPollVoterChoice', this.id);
-    adminPollOptions.removeClass('selected')
-    $(this).addClass('selected')
+    adminPollOptions.removeClass('selected');
+    $(this).addClass('selected');
   });
 }
 
 for (var i = 0; i < voteOptions.length; i++) {
   voteOptions[i].addEventListener('click', function () {
     socket.send('voterChoice', this.id);
-    voteOptions.removeClass('selected')
-    $(this).addClass('selected')
+    voteOptions.removeClass('selected');
+    $(this).addClass('selected');
   });
 }
 
 socket.on('hideVotingTab', function () {
   adminPollOptions.addClass('hidden');
-  $('#admin-poll-options').append("<h2>Poll has been closed</h2>")
+  $('#admin-poll-options').append("<h2>Poll has been closed</h2>");
 });
 
 socket.on('hideOpenVotingTab', function () {
   voteOptions.addClass('hidden');
-  $('#voting-options').append("<h2>Poll has been closed</h2>")
+  $('#voting-options').append("<h2>Poll has been closed</h2>");
 });
 
 socket.on('voteCount', function (runningTotalVoteCount) {

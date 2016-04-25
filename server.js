@@ -48,6 +48,11 @@ app.get('/admin-poll', (request, response) => {
   response.render('pages/admin-poll');
 });
 
+app.get('/polls-setup/:id', (request, response) => {
+  var currentPoll = app.locals.polls[request.params.id];
+  response.render('pages/poll-setup', { poll: currentPoll});
+});
+
 app.get('/polls/:id', (request, response) => {
   var currentPoll = app.locals.polls[request.params.id];
   response.render('pages/poll', { poll: currentPoll});
@@ -64,12 +69,13 @@ app.get('/admin-polls/:id', (request, response) => {
 });
 
 app.post('/polls', (request, response) => {
+  console.log(request.headers);
   var referer = request.headers.referer;
   var id = generateId();
   if (referer.search('open-poll') > -1) {
     console.log('open-poll');
     app.locals.polls[id] = request.body;
-    response.redirect('/polls/' + id);
+    response.redirect('/polls-setup/' + id);
   } else if (referer.search('admin-poll') > -1) {
     console.log('admin-poll');
     app.locals.adminPolls[id] = request.body;
@@ -89,6 +95,7 @@ io.on('connection', function (socket) {
   socket.on('message', function (channel, message) {
     if (channel === 'voterChoice') {
       votes[socket.id] = message;
+      console.log(votes);
       io.sockets.emit('voteCount', countVotes(votes));
     } else if (channel === 'adminPollVoterChoice') {
       adminVotes[socket.id] = message;
