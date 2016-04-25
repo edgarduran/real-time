@@ -8,6 +8,7 @@ var adminPollOptions = $('#admin-poll-options button');
 var adminVoteTally = $('.admin-vote-totals');
 var closePoll = $('.close-poll');
 var pollId = window.location.pathname.split('/')[2];
+var startTimer = $('.start-timer');
 
 closePoll.on('click', function () {
   socket.send('closePoll', pollId);
@@ -17,6 +18,10 @@ pollOptions.on('change', function () {
   var value = this.value;
   var optionForm = $('#' + value + '-options');
   optionForm.removeClass('hidden');
+});
+
+startTimer.on('click', function () {
+  socket.send('pollEndTime', pollId);
 });
 
 for (var i = 0; i < adminPollOptions.length; i++) {

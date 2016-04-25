@@ -98,9 +98,15 @@ io.on('connection', function (socket) {
 
   socket.on('message', function (channel, pollId) {
     if (channel === 'closePoll') {
-      app.locals.adminPolls[pollId].open = 'false';
-      io.sockets.emit('hideVotingTab');
-      io.sockets.emit('adminVoteCount', countVotes(adminVotes));
+      closePoll(pollId);
+    }
+  });
+
+  socket.on('message', function (channel, pollId) {
+    if (channel === 'pollEndTime') {
+      var timeout = app.locals.adminPolls[pollId].timeout;
+      console.log(timeout);
+      setTimeout(closePoll(pollId), timeout);
     }
   });
 
@@ -108,5 +114,11 @@ io.on('connection', function (socket) {
     delete votes[socket.id];
   });
 });
+
+function closePoll(pollId) {
+  app.locals.adminPolls[pollId].open = 'false';
+  io.sockets.emit('hideVotingTab');
+  io.sockets.emit('adminVoteCount', countVotes(adminVotes));
+}
 
 module.exports = app;
