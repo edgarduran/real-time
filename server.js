@@ -97,16 +97,19 @@ io.on('connection', function (socket) {
   });
 
   socket.on('message', function (channel, pollId) {
-    if (channel === 'closePoll') {
+    if (channel === 'closeThePoll') {
       closePoll(pollId);
     }
   });
 
   socket.on('message', function (channel, pollId) {
     if (channel === 'pollEndTime') {
-      var timeout = app.locals.adminPolls[pollId].timeout;
+      var minutes = app.locals.adminPolls[pollId].timeout;
+      var timeout = minutes * 60 * 1000;
       console.log(timeout);
-      setTimeout(closePoll(pollId), timeout);
+      setTimeout(function () {
+        closePoll(pollId);
+      },timeout);
     }
   });
 

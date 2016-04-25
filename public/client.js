@@ -14,7 +14,7 @@ var hosttname = window.location.hostname;
 var port = window.location.port;
 
 closePoll.on('click', function () {
-  socket.send('closePoll', pollId);
+  socket.send('closeThePoll', pollId);
 });
 
 pollOptions.on('change', function () {
@@ -30,7 +30,6 @@ startTimer.on('click', function () {
 showLink.on('click', function () {
   $('.voting-link').append("<h4>"
                           +hosttname
-                          +":"
                           +port
                           +"/admin-voting/"
                           +pollId
@@ -55,7 +54,6 @@ socket.on('hideVotingTab', function () {
 });
 
 socket.on('voteCount', function (runningTotalVoteCount) {
-  console.log(runningTotalVoteCount);
   voteTally.empty();
   voteTally.append("<ul>"
                     +"<li>" + runningTotalVoteCount.a + "</li>"
@@ -69,7 +67,6 @@ socket.on('voteCount', function (runningTotalVoteCount) {
 });
 
 socket.on('adminVoteCount', function (adminTotalVoteCount) {
-  console.log(adminTotalVoteCount);
   adminVoteTally.empty();
   adminVoteTally.append("<ul>"
                     +"<li>" + adminTotalVoteCount.a + "</li>"
