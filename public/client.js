@@ -46,12 +46,16 @@ showLink.on('click', function () {
 for (var i = 0; i < adminPollOptions.length; i++) {
   adminPollOptions[i].addEventListener('click', function () {
     socket.send('adminPollVoterChoice', this.id);
+    adminPollOptions.removeClass('selected')
+    $(this).addClass('selected')
   });
 }
 
 for (var i = 0; i < voteOptions.length; i++) {
   voteOptions[i].addEventListener('click', function () {
     socket.send('voterChoice', this.id);
+    voteOptions.removeClass('selected')
+    $(this).addClass('selected')
   });
 }
 
@@ -61,7 +65,7 @@ socket.on('hideVotingTab', function () {
 });
 
 socket.on('hideOpenVotingTab', function () {
-  pollOptions.addClass('hidden');
+  voteOptions.addClass('hidden');
   $('#voting-options').append("<h2>Poll has been closed</h2>")
 });
 
